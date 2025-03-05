@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahaze Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidenav">
+            <h2>Ahaze</h2>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search places...">
+                <button id="search-button" aria-label="Search">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="#fff" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+                <ul id="search-results" class="search-results"></ul>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#" data-path="/" class="nav-active">Home</a></li>
+                <li><a href="#" data-path="/explore">Explore</a>
+                    <ul class="sub-list" id="explore-sub-list"></ul>
+                </li>
+                <li><a href="#" data-path="/market">Market</a></li>
+                <li><a href="#" data-path="/connect">Connect</a>
+                    <ul class="sub-list" id="connect-groups-sub-list"></ul>
+                </li>
+                <li><a href="#" data-path="/organizations">Organizations</a></li>
+                <li><a href="#" data-path="/knowledge-center">Knowledge Center</a></li>
+                <li><a href="#" data-path="/agents">Agents</a>
+                    <ul class="sub-list" id="agents-sub-list"></ul>
+                </li>
+                <li><a href="#" data-path="/latest">Latest</a>
+                    <ul class="sub-list" id="latest-sub-list"></ul>
+                </li>
+                <li><a href="#" data-path="/profile">Profile</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1 id="place-title" style="display: none;">Select a Place</h1>
+            <div id="place-tabs" style="display: none;">
+                <button class="tab-button active" data-tab="posts">Posts</button>
+                <button class="tab-button" data-tab="know">Know <span id="know-place-name-tab">Place</span></button>
+                <button class="tab-button" data-tab="agents">Get Our Agents at <span id="agents-place-name-tab">Place</span></button>
+                <button class="tab-button" data-tab="latest">Latest about <span id="latest-place-name-tab">Place</span></button>
+            </div>
+            <div id="posts-tab" class="tab-content" style="display: none;">
+                <h3>Posts</h3>
+                <ul id="posts-list"></ul>
+                <form id="post-form" enctype="multipart/form-data">
+                    <textarea id="post-text" placeholder="Share your thoughts..." rows="4"></textarea>
+                    <input type="file" id="post-media" accept="image/*,video/*,image/gif,application/pdf" multiple>
+                    <div id="media-preview" class="media-preview"></div>
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+            <div id="know-tab" class="tab-content" style="display: none;">
+                <h3 id="know-place-name">Know Place</h3>
+                <p id="know-place-name-content"></p>
+                <ul id="know-list"></ul>
+                <form id="know-form">
+                    <textarea id="know-text" placeholder="Add knowledge..." rows="4"></textarea>
+                    <button type="submit">Submit Knowledge</button>
+                </form>
+            </div>
+            <div id="agents-tab" class="tab-content" style="display: none;">
+                <h3>Get Our Agents at <span id="agents-place-name">Place</span></h3>
+                <ul id="agents-list"></ul>
+            </div>
+            <div id="latest-tab" class="tab-content" style="display: none;">
+                <h3>Latest about <span id="latest-place-name">Place</span></h3>
+                <ul id="latest-list"></ul>
+            </div>
+            <div id="connect-tab" class="tab-content" style="display: none;">
+                <h1 id="connect-title">Connect with Ethiopians</h1>
+                <div id="connect-tabs">
+                    <button class="tab-button active" data-tab="groups">Groups</button>
+                    <button class="tab-button" data-tab="chats">Chats</button>
+                </div>
+                <div id="groups-tab" class="tab-content" style="display: block;">
+                    <h3>Community Groups</h3>
+                    <ul id="groups-list"></ul>
+                    <form id="group-post-form" enctype="multipart/form-data">
+                        <textarea id="group-post-text" placeholder="Post to your group..." rows="4"></textarea>
+                        <input type="file" id="group-post-media" accept="*" multiple>
+                        <div id="group-media-preview" class="media-preview"></div>
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
+                <div id="chats-tab" class="tab-content" style="display: none;">
+                    <h3>Private Chats</h3>
+                    <select id="chat-user-select">
+                        <option value="">Select a user to chat...</option>
+                    </select>
+                    <div id="chat-window" class="chat-window"></div>
+                    <form id="chat-form">
+                        <input type="text" id="chat-message" placeholder="Type a message..." required>
+                        <input type="file" id="chat-file" accept="*" multiple>
+                        <div id="chat-media-preview" class="media-preview"></div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+            <div id="profile-tab" class="tab-content" style="display: none;">
+                <h3>My Profile</h3>
+                <div class="profile-tabs">
+                    <button class="profile-tab-button active" data-tab="address">Address</button>
+                    <button class="profile-tab-button" data-tab="birth">Birth Information</button>
+                    <button class="profile-tab-button" data-tab="school">School</button>
+                    <button class="profile-tab-button" data-tab="family">Family</button>
+                    <button class="profile-tab-button" data-tab="work">Workplace</button>
+                </div>
+                <form id="profileForm" novalidate>
+                    <div id="tab-address" class="profile-tab-content active">
+                        <h4>Address</h4>
+                        <select id="profileCountry" required></select>
+                        <select id="profileRegion" required></select>
+                        <select id="profileZone" required></select>
+                        <select id="profileWoreda" required></select>
+                        <select id="profileKebele" required></select>
+                        <input type="text" id="profileOtherLevel" placeholder="Other Level (optional)">
+                    </div>
+                    <div id="tab-birth" class="profile-tab-content">
+                        <h4>Birth Information</h4>
+                        <select id="profileBirthCountry" required></select>
+                        <select id="profileBirthRegion" required></select>
+                        <select id="profileBirthZone" required></select>
+                        <select id="profileBirthWoreda" required></select>
+                        <select id="profileBirthKebele" required></select>
+                        <input type="text" id="profileBirthOther" placeholder="Other Birthplace (optional)">
+                    </div>
+                    <div id="tab-school" class="profile-tab-content">
+                        <h4>School</h4>
+                        <input type="text" id="profileElementary" placeholder="Elementary School">
+                        <input type="text" id="profileHighSchool" placeholder="High School">
+                        <input type="text" id="profilePreparatory" placeholder="Preparatory School">
+                        <input type="text" id="profileUniversity" placeholder="University">
+                    </div>
+                    <div id="tab-family" class="profile-tab-content">
+                        <h4>Family</h4>
+                        <input type="text" id="profileFatherName" placeholder="Father's Full Name">
+                        <input type="text" id="profileMotherName" placeholder="Mother's Full Name">
+                        <input type="text" id="profileRelated" placeholder="Related Family Details (optional)">
+                    </div>
+                    <div id="tab-work" class="profile-tab-content">
+                        <h4>Workplace</h4>
+                        <input type="text" id="profileWorkplace" placeholder="Workplace Name">
+                        <input type="text" id="profileJobTitle" placeholder="Job Title (optional)">
+                        <input type="text" id="profileWorkAddress" placeholder="Work Address (optional)">
+                    </div>
+                    <button type="submit">Save Profile</button>
+                </form>
+            </div>
+            <header class="hero home-content">
+                <h1>Welcome to Ahaze</h1>
+                <p>Discover, Connect, and Thrive in Ethiopia's Heartbeat</p>
+                <div class="cta-buttons">
+                    <button id="signUpBtn" class="cta-button">Sign Up</button>
+                    <button id="loginBtn" class="cta-button">Login</button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1580441417610-9c7e7c7b5c26?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Ethiopian Landscape" class="hero-image">
+            </header>
+            <section class="features home-content">
+                <h2>Explore Our World-Class Ethiopian Services</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Explore Icon" class="feature-icon">
+                        <h3>Explore</h3>
+                        <p>Navigate Ethiopia’s vibrant regions, zones, and kebeles with stunning detail.</p>
+                        <a href="#" data-path="/explore" class="feature-link">Dive Into Ethiopia</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Market Icon" class="feature-icon">
+                        <h3>Market</h3>
+                        <p>Buy, sell, and trade local goods like Ethiopian coffee and crafts.</p>
+                        <a href="#" data-path="/market" class="feature-link">Shop Ethiopian Treasures</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Connect Icon" class="feature-icon">
+                        <h3>Connect</h3>
+                        <p>Build communities and network with Ethiopians everywhere.</p>
+                        <a href="#" data-path="/connect" class="feature-link">Join Our Community</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1565299788948-a33d63a7d114?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Organizations Icon" class="feature-icon">
+                        <h3>Organizations</h3>
+                        <p>Partner with NGOs and local groups for impactful Ethiopian initiatives.</p>
+                        <a href="#" data-path="/organizations" class="feature-link">Partner Now</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Knowledge Center Icon" class="feature-icon">
+                        <h3>Knowledge Center</h3>
+                        <p>Access rich, local Ethiopian knowledge and insights.</p>
+                        <a href="#" data-path="/knowledge-center" class="feature-link">Discover Wisdom</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1593115054959-47e835e9a0b7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Agents Icon" class="feature-icon">
+                        <h3>Agents</h3>
+                        <p>Connect with live agents for authentication and Ethiopian support.</p>
+                        <a href="#" data-path="/agents" class="feature-link">Meet Our Agents</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Latest Icon" class="feature-icon">
+                        <h3>Latest</h3>
+                        <p>Stay updated with peace, weather, market, and traffic news in Ethiopia.</p>
+                        <a href="#" data-path="/latest" class="feature-link">Get Ethiopian Updates</a>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Icon" class="feature-icon">
+                        <h3>Profile</h3>
+                        <p>Manage your personal account and Ethiopian preferences.</p>
+                        <a href="#" data-path="/profile" class="feature-link">View Your Profile</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="auth-modal" id="auth-modal" style="display: none;">
+        <div class="auth-forms">
+            <div class="auth-form">
+                <h3>Sign Up</h3>
+                <button class="close-modal" aria-label="Close">×</button>
+                <form id="signUpForm">
+                    <input type="text" id="signUpIdentifier" placeholder="Email or Mobile Number" required>
+                    <input type="password" id="signUpPassword" placeholder="Password" required>
+                    <div class="address-section">
+                        <h4>Address</h4>
+                        <select id="signUpCountry" required></select>
+                        <select id="signUpRegion" required></select>
+                        <select id="signUpZone" required></select>
+                        <select id="signUpWoreda" required></select>
+                        <select id="signUpKebele" required></select>
+                        <input type="text" id="signUpOtherLevel" placeholder="Other Level (optional)">
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+            <div class="auth-form">
+                <h3>Login</h3>
+                <button class="close-modal" aria-label="Close">×</button>
+                <form id="loginForm">
+                    <input type="text" id="loginIdentifier" placeholder="Email or Mobile Number" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script src="script.js"></script>
+</body>
+</html>

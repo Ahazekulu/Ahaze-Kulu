@@ -1,0 +1,46 @@
+{
+  "indexes": [
+      {
+          "collectionGroup": "posts",
+          "queryScope": "COLLECTION",
+          "fields": [
+              {
+                  "fieldPath": "placeId",
+                  "order": "ASCENDING"
+              },
+              {
+                  "fieldPath": "timestamp",
+                  "order": "DESCENDING"
+              }
+          ]
+      },
+      {
+          "collectionGroup": "agents",
+          "queryScope": "COLLECTION",
+          "fields": [
+              {
+                  "fieldPath": "placeId",
+                  "order": "ASCENDING"
+              },
+              {
+                  "fieldPath": "isLive",
+                  "order": "ASCENDING"
+              }
+          ]
+      },
+      {
+          "collectionGroup": "latest",
+          "queryScope": "COLLECTION",
+          "fields": [
+              {
+                  "fieldPath": "placeId",
+                  "order": "ASCENDING"
+              },
+              {
+                  "fieldPath": "timestamp",
+                  "order": "DESCENDING"
+              }
+          ]
+      }
+  ]
+}
